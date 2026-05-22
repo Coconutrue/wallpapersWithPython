@@ -1,14 +1,10 @@
 import ctypes
 import os
 import time
-import datetime
-from tkinter import Menu
-from tkinter import ttk
 from tkinter import *
 from open_task import *
 from PIL import Image, ImageDraw, ImageFont
 import win32gui
-import tkinter as tk
 from Button import Button
 from Cashe import Cache
 from Color import Color
@@ -101,9 +97,7 @@ class Main:
         if current_time - self.lastClickTime < self.clickDelay:
             return False
 
-        # Получаем состояние левой кнопки мыши
         current_state = ctypes.windll.user32.GetKeyState(0x01) & 0x8000
-        # Определяем момент нажатия (переход из 0 в 1)
         if current_state and not self.mBuffer:
             self.mBuffer = True
             # Проверяем активное окно
@@ -111,15 +105,11 @@ class Main:
                 focus = win32gui.GetWindowText(win32gui.GetForegroundWindow())
             except:
                 focus = ''
-
             # Только если активен рабочий стол
             if focus in {'Program Manager', ''}:
                 x, y = queryMousePosition()['x'], queryMousePosition()['y']
-
-                # Перебираем кнопки в обратном порядке (верхние имеют приоритет)
                 for butt in reversed(button.buttons):
                     if butt['cord'].isInside(x, y):
-                        # Вызываем функцию кнопки в отдельном потоке, чтобы не блокировать
                         threading.Thread(target=butt['function'], daemon=True).start()
                         self.lastClickTime = current_time
                         return butt['update']  # Возвращаем, нужно ли обновление
@@ -161,70 +151,8 @@ class Main:
             self.needsUpdate = True
 
         def open_tasks():
-            # def change_theme():
-            #     self.theme = Color.getTheme_hex(self.indexTheme)
-            #     text_field['bg'] = self.theme['bg']
-            #     text_field['fg'] = self.theme['fg']
-            #     # text_field['insertbackground'] = view_colors[theme]['cursor']
-            #     text_field['selectbackground'] = self.theme['selectbackground']
-            #
-            # self.theme = Color.getTheme_hex(self.indexTheme)
-            # root = tk.Tk()
-            # root.title("Фоновое приложение")
-            # root.geometry("300x400")
-            # root.overrideredirect(True)  # Убирает рамку окна
-            #
-            # main_menu = tk.Menu(root)
-            # close_button = ttk.Button(root, text="Закрыть", command=root.destroy)
-            # close_button.pack()
-            #
-            # #файл
-            # file_menu = tk.Menu(main_menu, tearoff=0)
-            # file_menu.add_command(label='открыть')
-            # file_menu.add_command(label='сохранить')
-            # file_menu.add_separator()
-            # file_menu.add_command(label='закрыть')
-            # root.config(menu=file_menu)
-            #
-            # #вид
-            # viev_menu = Menu(main_menu, tearoff=0)
-            # viev_menu_sub = Menu(viev_menu, tearoff=0)
-            # font_menu_sub = Menu(viev_menu, tearoff=0)
-            # viev_menu_sub.add_command(label='соответствие', command=lambda: change_theme())
-            # viev_menu.add_cascade(label='Тема', menu=viev_menu_sub)
-            #
-            # root.config(menu=viev_menu)
-            #
-            #
-            # #добавление списков в меню
-            # main_menu.add_cascade(label='файл', menu=file_menu)
-            # main_menu.add_cascade(label='вид', menu=viev_menu)
-            #
-            # root.config(menu=main_menu)
-            #
-            # f_text = tk.Frame(root)
-            # f_text.pack(expand=1)
-            #
-            # text_field = tk.Text(f_text,
-            #                      bg = self.theme['bg'],
-            #                      fg=self.theme['fg'],
-            #                      padx=10,
-            #                      pady=10,
-            #                      insertbackground='brown',
-            #                      selectbackground=self.theme['selectbackground'],
-            #                      spacing3=10,
-            #                      font='Arial 14 bold'
-            #                      )
-            # text_field.pack(expand=1)
-            # scroll = tk.Scrollbar(f_text, command=text_field.yview)
-            # scroll.pack(side=tk.LEFT)
-            # text_field.config(yscrollcommand=scroll.set)
-            #
-            # # root.attributes('-topmost', True)  # Всегда поверх всех окон
-            #
-            # root.mainloop()
             app = QtWidgets.QApplication(sys.argv)
-            window = ExampleApp()
+            window = ExampleApp(theme=self.theme, theme_index=self.indexTheme)
             window.show()
             app.exec_()
 
