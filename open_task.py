@@ -16,6 +16,7 @@ class ExampleApp(QtWidgets.QMainWindow, tasks.Ui_MainWindow):
 
         self.cache = Cache()
 
+
         if theme is not None and theme_index is not None:
             self.theme_index = theme_index
             self.theme = theme
