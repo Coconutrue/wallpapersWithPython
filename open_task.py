@@ -10,7 +10,7 @@ class ExampleApp(QtWidgets.QMainWindow, tasks.Ui_MainWindow):
         self.init_db()
         self.setupUi(self)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.setGeometry(0, 0, 300, 400)
+        self.setGeometry(0, 0, 500, 400)
         # root.attributes('-topmost', True) - поверх всех окон
         self.setWindowFlags(self.windowFlags())
         self.cache = Cache()
@@ -19,8 +19,7 @@ class ExampleApp(QtWidgets.QMainWindow, tasks.Ui_MainWindow):
         self.theme_index = theme_index
 
         # кнопки
-        self.buttn_close.clicked.connect(self.warn_close_app)
-        self.buttn_save.clicked.connect(self.save_text)
+        self.buttn_close.clicked.connect(self.save_text)
         self.bttn_open_file.clicked.connect(self.open_file)
         self.change_theme.clicked.connect(self.close)
 
@@ -37,29 +36,18 @@ class ExampleApp(QtWidgets.QMainWindow, tasks.Ui_MainWindow):
            ''')
         self.conn.commit()
 
-    def warn_close_app(self):
-        reply = QtWidgets.QMessageBox.question(
-            self,
-            "warning",
-            "сохранись!",
-            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
-            QtWidgets.QMessageBox.No
-        )
-
-        if reply == QtWidgets.QMessageBox.Yes:
-            self.close()
-
     def save_text(self):
-        content = self.textEdit.toPlainText()
+        content = self.textEdit_2.toPlainText()
         self.cursor.execute('DELETE FROM notes')
         self.cursor.execute('INSERT INTO notes (content) VALUES (?)', (content,))
         self.conn.commit()
+        self.close()
 
     def load_text(self):
         self.cursor.execute('SELECT content FROM notes LIMIT 1')
         result = self.cursor.fetchone()
         if result and result[0]:
-            self.textEdit.setText(result[0])
+            self.textEdit_2.setText(result[0])
 
     def open_file(self):
         file_path, _ = QtWidgets.QFileDialog.getOpenFileName(
@@ -72,7 +60,7 @@ class ExampleApp(QtWidgets.QMainWindow, tasks.Ui_MainWindow):
             try:
                 with open(file_path, 'r', encoding='utf-8') as file:
                     content = file.read()
-                    self.textEdit.setText(content)
+                    self.textEdit_2.setText(content)
             except Exception as e:
                 QtWidgets.QMessageBox.warning(self, "Ошибка", f"Не удалось открыть файл: {str(e)}")
 
