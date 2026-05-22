@@ -60,7 +60,8 @@ class ExampleApp(QtWidgets.QMainWindow, tasks.Ui_MainWindow):
             try:
                 with open(file_path, 'r', encoding='utf-8') as file:
                     content = file.read()
-                    self.textEdit_2.setText(content)
+                    self.textEdit.setText(content)
+                    self.tabWidget.setCurrentIndex(1)
             except Exception as e:
                 QtWidgets.QMessageBox.warning(self, "Ошибка", f"Не удалось открыть файл: {str(e)}")
 

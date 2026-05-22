@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>673</width>
-    <height>540</height>
+    <height>531</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,29 +44,16 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QPushButton" name="buttn_save">
-        <property name="minimumSize">
-         <size>
-          <width>75</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>обновить</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>заметки</string>
+        <string>открытый файл</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
@@ -88,7 +75,7 @@ p, li { white-space: pre-wrap; }
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>открытый файл</string>
+        <string>заметки</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(673, 540)
+        MainWindow.resize(673, 531)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -31,10 +31,6 @@ class Ui_MainWindow(object):
         self.bttn_open_file = QtWidgets.QPushButton(self.centralwidget)
         self.bttn_open_file.setObjectName("bttn_open_file")
         self.horizontalLayout_2.addWidget(self.bttn_open_file)
-        self.buttn_save = QtWidgets.QPushButton(self.centralwidget)
-        self.buttn_save.setMinimumSize(QtCore.QSize(75, 23))
-        self.buttn_save.setObjectName("buttn_save")
-        self.horizontalLayout_2.addWidget(self.buttn_save)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName("tabWidget")
@@ -61,7 +57,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -70,14 +66,13 @@ class Ui_MainWindow(object):
         self.change_theme.setText(_translate("MainWindow", "под окружение"))
         self.buttn_close.setText(_translate("MainWindow", "закрыть"))
         self.bttn_open_file.setText(_translate("MainWindow", "открыть"))
-        self.buttn_save.setText(_translate("MainWindow", "обновить"))
         self.textEdit.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "заметки"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "открытый файл"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "открытый файл"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "заметки"))
 
 
 if __name__ == "__main__":
