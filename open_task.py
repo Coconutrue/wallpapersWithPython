@@ -1,6 +1,6 @@
 import sqlite3
 import sys
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 import tasks
 from Cashe import Cache
 from Color import Color
@@ -27,9 +27,41 @@ class ExampleApp(QtWidgets.QMainWindow, tasks.Ui_MainWindow):
         self.buttn_close.clicked.connect(self.save_text)
         self.bttn_open_file.clicked.connect(self.open_file)
         self.change_theme.clicked.connect(self.change_theme_style)
-
+        self.lineEdit.textChanged.connect(self.search_text)
         self.load_text()
         self.apply_theme_style()
+
+    def search_text(self):
+        search_word = self.lineEdit.text()
+        if not search_word:
+            self.clear_highlight()
+            return
+        self.highlight_in_textedit(self.textEdit, search_word)
+        self.highlight_in_textedit(self.textEdit_2, search_word)
+
+    def highlight_in_textedit(self, text_edit, search_word):
+        original_cursor = text_edit.textCursor()
+        cursor = text_edit.textCursor()
+        cursor.select(QtGui.QTextCursor.Document)
+        fmt = QtGui.QTextCharFormat()
+        fmt.setBackground(QtGui.QColor('transparent'))
+        cursor.mergeCharFormat(fmt)
+        highlight_format = QtGui.QTextCharFormat()
+        highlight_format.setBackground(QtGui.QColor('#ffeb3b'))
+        cursor = text_edit.document().find(search_word)
+        while not cursor.isNull():
+            cursor.mergeCharFormat(highlight_format)
+            cursor = text_edit.document().find(search_word, cursor)
+        text_edit.setTextCursor(original_cursor)
+
+    def clear_highlight(self):
+        for text_edit in [self.textEdit, self.textEdit_2]:
+            cursor = text_edit.textCursor()
+            cursor.select(QtGui.QTextCursor.Document)
+            fmt = QtGui.QTextCharFormat()
+            fmt.setBackground(QtGui.QColor('transparent'))
+            cursor.mergeCharFormat(fmt)
+
 
     def init_db(self):
         self.conn = sqlite3.connect('notes.db')

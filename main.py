@@ -189,19 +189,15 @@ class Main:
             print(f"Ошибка при работе с файлом обоев: {e}")
 
     def start(self):
-        print("Приложение запущено. Нажмите Ctrl+C для остановки.")
+        print("Приложение запущено.")
         self.update()  # Первоначальная отрисовка
-
-        last_update_check = time.time()
-        update_interval = 60  # Проверяем обновление каждые 60 секунд
 
         while True:
             try:
                 # Обрабатываем клики с высокой частотой
                 if self.onUpdate():
                     self.update()
-
-                # Маленькая задержка для снижения нагрузки на CPU
+                # Маленькая задерка для снижения нагрузки на CPU
                 time.sleep(0.01)
 
             except KeyboardInterrupt:

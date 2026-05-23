@@ -21,6 +21,9 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit.setObjectName("lineEdit")
+        self.horizontalLayout_2.addWidget(self.lineEdit)
         self.change_theme = QtWidgets.QPushButton(self.centralwidget)
         self.change_theme.setObjectName("change_theme")
         self.horizontalLayout_2.addWidget(self.change_theme)
@@ -63,6 +66,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.lineEdit.setText(_translate("MainWindow", "поиск в заметках"))
         self.change_theme.setText(_translate("MainWindow", "под окружение"))
         self.buttn_close.setText(_translate("MainWindow", "закрыть"))
         self.bttn_open_file.setText(_translate("MainWindow", "открыть"))
