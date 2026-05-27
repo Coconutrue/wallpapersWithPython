@@ -156,6 +156,12 @@ class Main:
             window.show()
             app.exec_()
 
+        def open_timer():
+            app = QtWidgets.QApplication(sys.argv)
+            from open_timer import Timer  # Теперь импортируем правильный класс
+            window = Timer(theme=self.theme, theme_index=self.indexTheme)
+            window.show()
+            app.exec_()
 
 
         self.setFont('font.ttf', 20)
@@ -174,12 +180,17 @@ class Main:
             theme['fg']
         )
         button.addButton(s1, open_tasks, True)
+        s2 = self.setText(
+            320,
+            15,
+            'Таймер',
+            theme['fg']
+        )
+        button.addButton(s2, open_timer, True)
 
         try:
             temp_path = 'resources/tmp/temp.png'
-            # Создаем папку если не существует
             os.makedirs('resources/tmp', exist_ok=True)
-
             if os.path.exists(temp_path):
                 os.remove(temp_path)
             self.object.save(temp_path)
@@ -197,7 +208,6 @@ class Main:
                 # Обрабатываем клики с высокой частотой
                 if self.onUpdate():
                     self.update()
-                # Маленькая задерка для снижения нагрузки на CPU
                 time.sleep(0.01)
 
             except KeyboardInterrupt:
